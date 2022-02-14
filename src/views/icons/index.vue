@@ -9,9 +9,11 @@
         <div class="grid">
           <div v-for="item of svgIcons" :key="item" @click="handleClipboard(generateIconCode(item),$event)">
             <el-tooltip placement="top">
-              <div slot="content">
-                {{ generateIconCode(item) }}
-              </div>
+              <template #content>
+                <div>
+                  {{ generateIconCode(item) }}
+                </div>
+              </template>
               <div class="icon-item">
                 <svg-icon :icon-class="item" class-name="disabled" />
                 <span>{{ item }}</span>
@@ -24,11 +26,15 @@
         <div class="grid">
           <div v-for="item of elementIcons" :key="item" @click="handleClipboard(generateElementIconCode(item),$event)">
             <el-tooltip placement="top">
-              <div slot="content">
-                {{ generateElementIconCode(item) }}
-              </div>
+              <template #content>
+                <div>
+                  {{ generateElementIconCode(item) }}
+                </div>
+              </template>
               <div class="icon-item">
-                <i :class="'el-icon-' + item" />
+                <el-icon>
+                  <component :is="item" />
+                </el-icon>
                 <span>{{ item }}</span>
               </div>
             </el-tooltip>
@@ -42,14 +48,14 @@
 <script>
 import clipboard from '@/utils/clipboard'
 import svgIcons from './svg-icons'
-import elementIcons from './element-icons'
+import * as ElementIcon from '@element-plus/icons-vue'
 
 export default {
   name: 'Icons',
   data() {
     return {
       svgIcons,
-      elementIcons
+      elementIcons: Object.keys(ElementIcon)
     }
   },
   methods: {
@@ -57,7 +63,7 @@ export default {
       return `<svg-icon icon-class="${symbol}" />`
     },
     generateElementIconCode(symbol) {
-      return `<i class="el-icon-${symbol}" />`
+      return `<el-icon><${symbol} /></el-icon>`
     },
     handleClipboard(text, event) {
       clipboard(text, event)
@@ -92,6 +98,8 @@ export default {
     display: block;
     font-size: 16px;
     margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .disabled {

@@ -48,7 +48,7 @@
           <div class="card-panel-text">
             Shoppings
           </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
+          <!-- <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" /> -->
         </div>
       </div>
     </el-col>
@@ -56,12 +56,13 @@
 </template>
 
 <script>
-import CountTo from 'vue-count-to'
+// TODO: countTo 不支持vue3 待解决
+// import CountTo from 'vue-count-to'
 
 export default {
-  components: {
-    CountTo
-  },
+  // components: {
+  //   CountTo
+  // },
   methods: {
     handleSetLineChartData(type) {
       this.$emit('handleSetLineChartData', type)

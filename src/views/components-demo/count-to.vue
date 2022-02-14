@@ -3,7 +3,7 @@
     <aside>
       <a href="https://github.com/PanJiaChen/vue-countTo" target="_blank">countTo-component</a>
     </aside>
-    <count-to
+    <!-- <count-to
       ref="example"
       :start-val="_startVal"
       :end-val="_endVal"
@@ -14,7 +14,7 @@
       :suffix="_suffix"
       :autoplay="false"
       class="example"
-    />
+    /> -->
     <div style="margin-left: 25%;margin-top: 40px;">
       <label class="label" for="startValInput">startVal:
         <input v-model.number="setStartVal" type="number" name="startValInput">
@@ -52,11 +52,12 @@
 </template>
 
 <script>
-import countTo from 'vue-count-to'
+// TODO: countTo 不支持vue3 待解决
+// import countTo from 'vue-count-to'
 
 export default {
   name: 'CountToDemo',
-  components: { countTo },
+  // components: { countTo },
   data() {
     return {
       setStartVal: 0,

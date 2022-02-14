@@ -12,8 +12,8 @@ export default {
       default: ''
     }
   },
-  render(h, context) {
-    const { icon, title } = context.props
+  render() {
+    const { icon, title } = this
     const vnodes = []
 
     if (icon) {

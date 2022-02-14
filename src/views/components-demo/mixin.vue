@@ -2,9 +2,11 @@
   <div class="mixin-components-container">
     <el-row>
       <el-card class="box-card">
-        <div slot="header" class="clearfix">
-          <span>Buttons</span>
-        </div>
+        <template #header>
+          <div class="clearfix">
+            <span>Buttons</span>
+          </div>
+        </template>
         <div style="margin-bottom:50px;">
           <el-col :span="4" class="text-center">
             <router-link class="pan-btn blue-btn" to="/documentation/index">
