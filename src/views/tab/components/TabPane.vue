@@ -7,45 +7,45 @@
       width="65"
       element-loading-text="请给我点时间！"
     >
-      <template slot-scope="scope">
+      <template #default="scope">
         <span>{{ scope.row.id }}</span>
       </template>
     </el-table-column>
 
     <el-table-column width="180px" align="center" label="Date">
-      <template slot-scope="scope">
-        <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+      <template #default="scope">
+        <span>{{ $filter.parseTime(scope.row.timestamp, '{y}-{m}-{d} {h}:{i}') }}</span>
       </template>
     </el-table-column>
 
     <el-table-column min-width="300px" label="Title">
-      <template slot-scope="{row}">
+      <template #default="{row}">
         <span>{{ row.title }}</span>
         <el-tag>{{ row.type }}</el-tag>
       </template>
     </el-table-column>
 
     <el-table-column width="110px" align="center" label="Author">
-      <template slot-scope="scope">
+      <template #default="scope">
         <span>{{ scope.row.author }}</span>
       </template>
     </el-table-column>
 
     <el-table-column width="120px" label="Importance">
-      <template slot-scope="scope">
+      <template #default="scope">
         <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" />
       </template>
     </el-table-column>
 
     <el-table-column align="center" label="Readings" width="95">
-      <template slot-scope="scope">
+      <template #default="scope">
         <span>{{ scope.row.pageviews }}</span>
       </template>
     </el-table-column>
 
     <el-table-column class-name="status-col" label="Status" width="110">
-      <template slot-scope="{row}">
-        <el-tag :type="row.status | statusFilter">
+      <template #default="{row}">
+        <el-tag :type="statusFilter(row.status)">
           {{ row.status }}
         </el-tag>
       </template>
@@ -57,16 +57,6 @@
 import { fetchList } from '@/api/article'
 
 export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'info',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   props: {
     type: {
       type: String,
@@ -96,6 +86,14 @@ export default {
         this.list = response.data.items
         this.loading = false
       })
+    },
+    statusFilter(status) {
+      const statusMap = {
+        published: 'success',
+        draft: 'info',
+        deleted: 'danger'
+      }
+      return statusMap[status]
     }
   }
 }
